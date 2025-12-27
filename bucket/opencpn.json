@@ -1,11 +1,11 @@
 {
-    "version": "5.12.4",
+    "version": "5.12.3",
     "description": "OpenCPN – a concise ChartPlotter and Navigator",
     "homepage": "https://opencpn.org/",
     "license": "GPL-2.0-or-later",
 
     "url": "https://github.com/OpenCPN/OpenCPN/releases/download/Release_5.12.4/OpenCPN_5.12.4_setup.exe",
-    "hash": "sha256:<INSERT-SHA256_HERE>",
+    "hash": "zxzxcv123423",
 
     "installer": {
         "script": [
