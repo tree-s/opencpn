@@ -11,13 +11,20 @@
         "script": [
             "7z x \"$dir\\$fname\" -o\"$dir\" -y",
             "Remove-Item \"$dir\\$fname\" -Force",
-
-            "# Flatten NSIS structure",
-            "$exe = Get-ChildItem \"$dir\" -Recurse -Filter OpenCPN.exe | Select-Object -First 1",
-            "Move-Item $exe.Directory.FullName\\* \"$dir\" -Force"
+    
+            "# Find extracted OpenCPN.exe",
+            "$exe = Get-ChildItem -Path $dir -Recurse -Filter OpenCPN.exe | Select-Object -First 1",
+            "if (-not $exe) { throw 'OpenCPN.exe not found after extraction' }",
+    
+            "# Move extracted files to app root",
+            "$src = $exe.Directory.FullName",
+            "Get-ChildItem -Path $src -Force | ForEach-Object { Move-Item $_.FullName $dir -Force }",
+    
+            "# Cleanup empty directories",
+            "Get-ChildItem -Path $src -Recurse -Force | Remove-Item -Recurse -Force -ErrorAction SilentlyContinue"
         ]
     },
-
+    
     "bin": "OpenCPN.exe",
 
     "checkver": {
