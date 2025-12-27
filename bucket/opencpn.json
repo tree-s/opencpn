@@ -1,19 +1,20 @@
 {
-    "version": "5.12.3",
+    "version": "5.12.4",
     "description": "OpenCPN – a concise ChartPlotter and Navigator",
     "homepage": "https://opencpn.org/",
     "license": "GPL-2.0-or-later",
 
-    "url": "https://github.com/OpenCPN/OpenCPN/releases/download/Release_5.12.4/OpenCPN_5.12.4_setup.exe",
-    "hash": "zxzxcv123423",
+    "url": "https://github.com/OpenCPN/OpenCPN/releases/download/Release_5.12.4/opencpn_5.12.4-0+3720.37fd0cd_setup.exe",
+    "hash": "e949f55de57611afe2fc0dad5a8ac33795c46ba488cb40ca07b65f639a07b8aa",
 
     "installer": {
         "script": [
-            "7z x \"$dir\\OpenCPN_${version}_setup.exe\" -o\"$dir\" -y",
-            "Remove-Item \"$dir\\OpenCPN_${version}_setup.exe\" -Force",
+            "7z x \"$dir\\$fname\" -o\"$dir\" -y",
+            "Remove-Item \"$dir\\$fname\" -Force",
 
-            "# NSIS installers usually extract to $PLUGINSDIR or similar",
-            "Get-ChildItem \"$dir\" -Recurse | Where-Object { $_.Name -eq 'OpenCPN.exe' } | ForEach-Object { Move-Item $_.Directory.FullName\\* \"$dir\" -Force }"
+            "# Flatten NSIS structure",
+            "$exe = Get-ChildItem \"$dir\" -Recurse -Filter OpenCPN.exe | Select-Object -First 1",
+            "Move-Item $exe.Directory.FullName\\* \"$dir\" -Force"
         ]
     },
 
@@ -21,10 +22,10 @@
 
     "checkver": {
         "github": "https://github.com/OpenCPN/OpenCPN",
-        "regex": "Release_(?<version>[\\d.]+)"
+        "regex": "opencpn_(?<version>[\\d.]+)-[\\d+\\.a-f]+_setup\\.exe"
     },
 
     "autoupdate": {
-        "url": "https://github.com/OpenCPN/OpenCPN/releases/download/Release_$version/OpenCPN_$version_setup.exe"
+        "url": "https://github.com/OpenCPN/OpenCPN/releases/download/Release_$version/$match"
     }
 }
