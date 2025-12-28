@@ -3,10 +3,8 @@
     "description": "OpenCPN – a concise ChartPlotter and Navigator",
     "homepage": "https://opencpn.org/",
     "license": "GPL-2.0-or-later",
-
     "url": "https://github.com/OpenCPN/OpenCPN/releases/download/Release_5.12.4/opencpn_5.12.4-0+3720.37fd0cd_setup.exe",
     "hash": "e949f55de57611afe2fc0dad5a8ac33795c46ba488cb40ca07b65f639a07b8aa",
-
     "installer": {
         "script": [
             "$tmp = Join-Path $dir '_extract'",
@@ -16,14 +14,11 @@
             "Remove-Item $tmp -Recurse -Force"
         ]
     },
-    
     "bin": "OpenCPN.exe",
-
     "checkver": {
         "github": "https://github.com/OpenCPN/OpenCPN",
         "regex": "opencpn_(?<version>[\\d.]+)-[\\d+\\.a-f]+_setup\\.exe"
     },
-
     "autoupdate": {
         "url": "https://github.com/OpenCPN/OpenCPN/releases/download/Release_$version/$match"
     }
